@@ -1,0 +1,9 @@
+{
+	"name": "Covid-19-report-adf-2022",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ba153241-1cdf-4fae-97b7-6fe46f3f8d01",
+		"tenantId": "3d69f35d-4646-4e2f-94d5-7371420eca5f"
+	}
+}
