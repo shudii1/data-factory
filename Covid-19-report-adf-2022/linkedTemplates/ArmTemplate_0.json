@@ -86,12 +86,20 @@
 					"referenceName": "ls_adls_covidreportingdl",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"fileName": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "cases_deaths.csv",
+						"fileName": {
+							"value": "@dataset().fileName",
+							"type": "Expression"
+						},
 						"folderPath": "ecdc",
 						"fileSystem": "raw"
 					},
@@ -115,12 +123,20 @@
 					"referenceName": "ls_https_github_ecdc_eu",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"relativeURL": {
+						"type": "String"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "HttpServerLocation",
-						"relativeUrl": "cloudboxacademy/covid19/blob/main/ecdc_data/cases_deaths.csv"
+						"relativeUrl": {
+							"value": "@dataset().relativeURL",
+							"type": "Expression"
+						}
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -246,20 +262,40 @@
 							{
 								"referenceName": "ds_cases_death_raw_csv_https",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"relativeURL": {
+										"value": "@variables('sourceRelativeURL')",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "ds_cases_death_csv_adls",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"fileName": {
+										"value": "@variables('sinkFileName')",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"variables": {
+					"sourceRelativeURL": {
+						"type": "String",
+						"defaultValue": "cloudboxacademy/covid19/blob/main/ecdc_data/hospital_admissions.csv"
+					},
+					"sinkFileName": {
+						"type": "String",
+						"defaultValue": "hospital_admissions.csv"
+					}
 				},
 				"annotations": []
 			},
