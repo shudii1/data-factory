@@ -302,7 +302,7 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/population/blobs/population_by_age (1).tsv.gz",
+					"blobPathBeginsWith": "/population/blobs/",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('tr_ingest_population_properties_typeProperties_scope')]",
 					"events": [
