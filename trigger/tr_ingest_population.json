@@ -1,0 +1,17 @@
+{
+	"name": "tr_ingest_population",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/population/blobs/population_By_age.tsv.gz",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/7d6339a7-d4da-4e3f-a2a9-1a19dfba6fa8/resourceGroups/cov19proj/providers/Microsoft.Storage/storageAccounts/covid19reporting2022",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
