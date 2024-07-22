@@ -81,6 +81,12 @@
 					"sleep": 10,
 					"minimumSize": 1024
 				}
+			},
+			{
+				"name": "If file contain columns count",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": []
 			}
 		],
 		"concurrency": 1,
