@@ -14,6 +14,9 @@
 		"ls_adls_covidreportingdl_properties_typeProperties_url": {
 			"value": "https://covid19storage2022.dfs.core.windows.net/"
 		},
+		"ls_https_github_ecdc_eu_properties_typeProperties_url": {
+			"value": "https://github.com"
+		},
 		"tr_ingest_population_properties_typeProperties_scope": {
 			"value": "/subscriptions/7d6339a7-d4da-4e3f-a2a9-1a19dfba6fa8/resourceGroups/cov19proj/providers/Microsoft.Storage/storageAccounts/covid19reporting2022"
 		}
