@@ -1,5 +1,5 @@
 {
-	"name": "ds_cases_death_raw_csv_https",
+	"name": "ds_ecdc_raw_csv_https",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_https_github_ecdc_eu",
