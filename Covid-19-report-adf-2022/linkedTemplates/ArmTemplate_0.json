@@ -26,6 +26,14 @@
 		"tr_ingest_population_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/7d6339a7-d4da-4e3f-a2a9-1a19dfba6fa8/resourceGroups/cov19proj/providers/Microsoft.Storage/storageAccounts/covid19reporting2022"
+		},
+		"tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sourceRelativeURL": {
+			"type": "string",
+			"defaultValue": "cloudboxacademy/covid19/blob/main/ecdc_data/hospital_admissions.csv"
+		},
+		"tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sinkFileName": {
+			"type": "string",
+			"defaultValue": "hospital_admission.csv"
 		}
 	},
 	"variables": {
@@ -78,7 +86,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ds_cases_death_csv_adls')]",
+			"name": "[concat(parameters('factoryName'), '/ds_ecdc_csv_adls')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -115,7 +123,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ds_cases_death_raw_csv_https')]",
+			"name": "[concat(parameters('factoryName'), '/ds_ecdc_raw_csv_https')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -209,13 +217,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pl_ingest_cases_deaths_data')]",
+			"name": "[concat(parameters('factoryName'), '/pl_ecdc_data')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy cases deaths data",
+						"name": "Copy ECDC data",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -260,11 +268,11 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "ds_cases_death_raw_csv_https",
+								"referenceName": "ds_ecdc_raw_csv_https",
 								"type": "DatasetReference",
 								"parameters": {
 									"relativeURL": {
-										"value": "@variables('sourceRelativeURL')",
+										"value": "@pipeline().parameters.sourceRelativeURL",
 										"type": "Expression"
 									}
 								}
@@ -272,11 +280,11 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "ds_cases_death_csv_adls",
+								"referenceName": "ds_ecdc_csv_adls",
 								"type": "DatasetReference",
 								"parameters": {
 									"fileName": {
-										"value": "@variables('sinkFileName')",
+										"value": "@pipeline().parameters.sinkFileName",
 										"type": "Expression"
 									}
 								}
@@ -287,21 +295,19 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
-				"variables": {
+				"parameters": {
 					"sourceRelativeURL": {
-						"type": "String",
-						"defaultValue": "cloudboxacademy/covid19/blob/main/ecdc_data/hospital_admissions.csv"
+						"type": "string"
 					},
 					"sinkFileName": {
-						"type": "String",
-						"defaultValue": "hospital_admissions.csv"
+						"type": "string"
 					}
 				},
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_cases_death_raw_csv_https')]",
-				"[concat(variables('factoryId'), '/datasets/ds_cases_death_csv_adls')]"
+				"[concat(variables('factoryId'), '/datasets/ds_ecdc_raw_csv_https')]",
+				"[concat(variables('factoryId'), '/datasets/ds_ecdc_csv_adls')]"
 			]
 		},
 		{
@@ -499,6 +505,40 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/pl_ingest_population_data')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tr_ingest_hospital_admission_data')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pl_ecdc_data",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"sourceRelativeURL": "[parameters('tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sourceRelativeURL')]",
+							"sinkFileName": "[parameters('tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sinkFileName')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2024-07-23T17:41:00",
+						"timeZone": "India Standard Time",
+						"schedule": {}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pl_ecdc_data')]"
 			]
 		}
 	]
