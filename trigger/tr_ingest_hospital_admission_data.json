@@ -11,7 +11,7 @@
 				},
 				"parameters": {
 					"sourceRelativeURL": "https://raw.githubusercontent.com",
-					"sinkFileName": "hospital_admission.csv",
+					"sinkFileName": "country_response.csv",
 					"sourceBaseURL": "cloudboxacademy/covid19/main/ecdc_data/country_response.csv\n\n"
 				}
 			}
