@@ -10,9 +10,9 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"sourceRelativeURL": "https://raw.githubusercontent.com",
+					"sourceRelativeURL": "cloudboxacademy/covid19/main/ecdc_data/country_response.csv\n",
 					"sinkFileName": "country_response.csv",
-					"sourceBaseURL": "cloudboxacademy/covid19/main/ecdc_data/country_response.csv\n\n"
+					"sourceBaseURL": "https://raw.githubusercontent.com\n"
 				}
 			}
 		],
