@@ -21,11 +21,7 @@
 		},
 		"ls_https_github_ecdc_eu_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://github.com"
-		},
-		"tr_ingest_population_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/7d6339a7-d4da-4e3f-a2a9-1a19dfba6fa8/resourceGroups/cov19proj/providers/Microsoft.Storage/storageAccounts/covid19reporting2022"
+			"defaultValue": "https://raw.githubusercontent.com"
 		},
 		"tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sourceRelativeURL": {
 			"type": "string",
@@ -34,6 +30,10 @@
 		"tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sinkFileName": {
 			"type": "string",
 			"defaultValue": "hospital_admission.csv"
+		},
+		"tr_ingest_population_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/7d6339a7-d4da-4e3f-a2a9-1a19dfba6fa8/resourceGroups/cov19proj/providers/Microsoft.Storage/storageAccounts/covid19reporting2022"
 		},
 		"containerUri": {
 			"type": "string",
@@ -74,14 +74,14 @@
 					"ls_https_github_ecdc_eu_properties_typeProperties_url": {
 						"value": "[parameters('ls_https_github_ecdc_eu_properties_typeProperties_url')]"
 					},
-					"tr_ingest_population_properties_typeProperties_scope": {
-						"value": "[parameters('tr_ingest_population_properties_typeProperties_scope')]"
-					},
 					"tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sourceRelativeURL": {
 						"value": "[parameters('tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sourceRelativeURL')]"
 					},
 					"tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sinkFileName": {
 						"value": "[parameters('tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sinkFileName')]"
+					},
+					"tr_ingest_population_properties_typeProperties_scope": {
+						"value": "[parameters('tr_ingest_population_properties_typeProperties_scope')]"
 					}
 				}
 			},
