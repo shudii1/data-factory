@@ -21,7 +21,7 @@
 		},
 		"ls_https_github_ecdc_eu_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://raw.githubusercontent.com"
+			"defaultValue": "@{linkedService().sourceBaseURL}"
 		},
 		"tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sourceRelativeURL": {
 			"type": "string",
