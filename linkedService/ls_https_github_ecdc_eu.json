@@ -1,6 +1,11 @@
 {
 	"name": "ls_https_github_ecdc_eu",
 	"properties": {
+		"parameters": {
+			"sourceBaseURL": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
