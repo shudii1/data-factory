@@ -18,13 +18,13 @@
 			"value": "@{linkedService().sourceBaseURL}"
 		},
 		"tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sourceRelativeURL": {
-			"value": "https://raw.githubusercontent.com"
+			"value": "cloudboxacademy/covid19/main/ecdc_data/country_response.csv\n"
 		},
 		"tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sinkFileName": {
 			"value": "country_response.csv"
 		},
 		"tr_ingest_hospital_admission_data_properties_pl_ecdc_data_parameters_sourceBaseURL": {
-			"value": "cloudboxacademy/covid19/main/ecdc_data/country_response.csv\n\n"
+			"value": "https://raw.githubusercontent.com/\n"
 		},
 		"tr_ingest_population_properties_typeProperties_scope": {
 			"value": "/subscriptions/7d6339a7-d4da-4e3f-a2a9-1a19dfba6fa8/resourceGroups/cov19proj/providers/Microsoft.Storage/storageAccounts/covid19reporting2022"
