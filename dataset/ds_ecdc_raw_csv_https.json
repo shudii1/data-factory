@@ -3,11 +3,20 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_https_github_ecdc_eu",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"sourceBaseURL": {
+					"value": "@dataset().baseURL",
+					"type": "Expression"
+				}
+			}
 		},
 		"parameters": {
 			"relativeURL": {
 				"type": "String"
+			},
+			"baseURL": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
