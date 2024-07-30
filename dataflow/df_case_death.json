@@ -58,6 +58,7 @@
 				"          date,",
 				"          source),",
 				"     pivotBy(indicator, ['confirmed_cases', 'deaths']),",
+				"     count = sum(daily_count),",
 				"     columnNaming: '$N_$V',",
 				"     lateral: true) ~> pivotCount"
 			]
