@@ -57,6 +57,7 @@
 				"          population,",
 				"          date,",
 				"          source),",
+				"     pivotBy(indicator, ['confirmed_cases', 'deaths']),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivotCount"
 			]
