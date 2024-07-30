@@ -19,7 +19,11 @@
 					"name": "CountryLookUp"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "sinkProcessed"
+				}
+			],
 			"transformations": [
 				{
 					"name": "filterCaseDeathData"
@@ -96,12 +100,14 @@
 				"          count_confirmed_cases,",
 				"          count_deaths,",
 				"          date,",
-				"          source,",
-				"          continent,",
-				"          population = CountryLookUp@population",
+				"          source",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> selectForSink"
+				"     skipDuplicateMapOutputs: true) ~> selectForSink",
+				"selectForSink sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkProcessed"
 			]
 		}
 	}
