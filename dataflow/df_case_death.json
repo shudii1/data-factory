@@ -12,7 +12,11 @@
 					"name": "CaseAndDeath"
 				},
 				{
-					"name": "source1"
+					"dataset": {
+						"referenceName": "ds_country_lookup",
+						"type": "DatasetReference"
+					},
+					"name": "CountryLookUp"
 				}
 			],
 			"sinks": [],
@@ -45,8 +49,16 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> CaseAndDeath",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source1",
+				"source(output(",
+				"          country as string,",
+				"          country_code_2_digit as string,",
+				"          country_code_3_digit as string,",
+				"          continent as string,",
+				"          population as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> CountryLookUp",
 				"CaseAndDeath filter(continent=='Europe' && not(isNull(country_code))) ~> filterCaseDeathData",
 				"filterCaseDeathData select(mapColumn(",
 				"          country,",
