@@ -54,10 +54,9 @@
 				"     skipDuplicateMapOutputs: true) ~> selectRawcaseDeathData",
 				"selectRawcaseDeathData pivot(groupBy(country,",
 				"          country_code,",
-				"          continent,",
 				"          population,",
 				"          date,",
-				"          {} = ERROR_FUNCTION('')),",
+				"          source),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivotCount"
 			]
