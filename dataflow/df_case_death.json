@@ -54,7 +54,13 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> selectRawcaseDeathData",
-				"selectRawcaseDeathData pivot(columnNaming: '$N$V',",
+				"selectRawcaseDeathData pivot(groupBy(country,",
+				"          country_code,",
+				"          continent,",
+				"          population,",
+				"          date,",
+				"          {} = ERROR_FUNCTION('')),",
+				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivotCount"
 			]
 		}
