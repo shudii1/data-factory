@@ -19,6 +19,9 @@
 				},
 				{
 					"name": "selectRawcaseDeathData"
+				},
+				{
+					"name": "pivotCount"
 				}
 			],
 			"scriptLines": [
@@ -50,7 +53,9 @@
 				"          case_indicator = indicator",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> selectRawcaseDeathData"
+				"     skipDuplicateMapOutputs: true) ~> selectRawcaseDeathData",
+				"selectRawcaseDeathData pivot(columnNaming: '$N$V',",
+				"     lateral: true) ~> pivotCount"
 			]
 		}
 	}
