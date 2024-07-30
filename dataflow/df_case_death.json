@@ -10,6 +10,9 @@
 						"type": "DatasetReference"
 					},
 					"name": "CaseAndDeath"
+				},
+				{
+					"name": "source1"
 				}
 			],
 			"sinks": [],
@@ -22,6 +25,9 @@
 				},
 				{
 					"name": "pivotCount"
+				},
+				{
+					"name": "lookupCountry"
 				}
 			],
 			"scriptLines": [
@@ -39,6 +45,8 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> CaseAndDeath",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> source1",
 				"CaseAndDeath filter(continent=='Europe' && not(isNull(country_code))) ~> filterCaseDeathData",
 				"filterCaseDeathData select(mapColumn(",
 				"          country,",
@@ -60,7 +68,11 @@
 				"     pivotBy(indicator, ['confirmed_cases', 'deaths']),",
 				"     count = sum(daily_count),",
 				"     columnNaming: '$N_$V',",
-				"     lateral: true) ~> pivotCount"
+				"     lateral: true) ~> pivotCount",
+				"pivotCount lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookupCountry"
 			]
 		}
 	}
