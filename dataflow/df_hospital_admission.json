@@ -29,6 +29,9 @@
 				},
 				{
 					"name": "selectHospitalAdmissoin"
+				},
+				{
+					"name": "splitWeeklyDaily"
 				}
 			],
 			"scriptLines": [
@@ -81,7 +84,9 @@
 				"          population",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> selectHospitalAdmissoin"
+				"     skipDuplicateMapOutputs: true) ~> selectHospitalAdmissoin",
+				"selectHospitalAdmissoin split(indicator=='Weekly new hospital admissions per 100k' ||indicator=='Weekly new ICU admissions per 100k',",
+				"     disjoint: false) ~> splitWeeklyDaily@(Weekly, Daily)"
 			]
 		}
 	}
