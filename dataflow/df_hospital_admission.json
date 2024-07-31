@@ -10,12 +10,22 @@
 						"type": "DatasetReference"
 					},
 					"name": "hospitalAdmission"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_country_lookup",
+						"type": "DatasetReference"
+					},
+					"name": "countrySource"
 				}
 			],
 			"sinks": [],
 			"transformations": [
 				{
 					"name": "select"
+				},
+				{
+					"name": "lookupCountryCode"
 				}
 			],
 			"scriptLines": [
@@ -31,6 +41,16 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> hospitalAdmission",
+				"source(output(",
+				"          country as string,",
+				"          country_code_2_digit as string,",
+				"          country_code_3_digit as string,",
+				"          continent as string,",
+				"          population as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> countrySource",
 				"hospitalAdmission select(mapColumn(",
 				"          country,",
 				"          indicator,",
@@ -40,7 +60,11 @@
 				"          source",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select"
+				"     skipDuplicateMapOutputs: true) ~> select",
+				"select lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookupCountryCode"
 			]
 		}
 	}
