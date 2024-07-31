@@ -37,8 +37,7 @@
 				"          date,",
 				"          year_week,",
 				"          value,",
-				"          source,",
-				"          url",
+				"          source",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select"
