@@ -61,7 +61,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select",
-				"select lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"select, countrySource lookup(select@country == countrySource@country,",
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookupCountryCode"
