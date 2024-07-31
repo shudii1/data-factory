@@ -28,7 +28,7 @@
 					"name": "lookupCountryCode"
 				},
 				{
-					"name": "select1"
+					"name": "selectHospitalAdmissoin"
 				}
 			],
 			"scriptLines": [
@@ -78,11 +78,10 @@
 				"          country = countrySource@country,",
 				"          country_code_2_digit,",
 				"          country_code_3_digit,",
-				"          continent,",
 				"          population",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"     skipDuplicateMapOutputs: true) ~> selectHospitalAdmissoin"
 			]
 		}
 	}
