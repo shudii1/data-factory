@@ -35,7 +35,7 @@
 				"          country,",
 				"          indicator,",
 				"          reported_date = date,",
-				"          year_week,",
+				"          reported_year_week = year_week,",
 				"          value,",
 				"          source",
 				"     ),",
