@@ -22,10 +22,13 @@
 			"sinks": [],
 			"transformations": [
 				{
-					"name": "select"
+					"name": "selectHospital"
 				},
 				{
 					"name": "lookupCountryCode"
+				},
+				{
+					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -60,11 +63,26 @@
 				"          source",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select",
-				"select, countrySource lookup(select@country == countrySource@country,",
+				"     skipDuplicateMapOutputs: true) ~> selectHospital",
+				"selectHospital, countrySource lookup(selectHospital@country == countrySource@country,",
 				"     multiple: false,",
 				"     pickup: 'any',",
-				"     broadcast: 'auto')~> lookupCountryCode"
+				"     broadcast: 'auto')~> lookupCountryCode",
+				"lookupCountryCode select(mapColumn(",
+				"          country = selectHospital@country,",
+				"          indicator,",
+				"          reported_date,",
+				"          reported_year_week,",
+				"          value,",
+				"          source,",
+				"          country = countrySource@country,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit,",
+				"          continent,",
+				"          population",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1"
 			]
 		}
 	}
