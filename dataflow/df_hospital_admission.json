@@ -13,14 +13,23 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "select1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          {<!DOCTYPE html>} as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> hospitalAdmission"
+				"     ignoreNoFilesFound: false) ~> hospitalAdmission",
+				"hospitalAdmission select(mapColumn(",
+				"          {<!DOCTYPE html>}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1"
 			]
 		}
 	}
