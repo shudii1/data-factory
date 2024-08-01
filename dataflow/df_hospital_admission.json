@@ -44,7 +44,10 @@
 					"name": "aggregateECDCDate"
 				},
 				{
-					"name": "join1"
+					"name": "joinWithDate"
+				},
+				{
+					"name": "pivot1"
 				}
 			],
 			"scriptLines": [
@@ -124,7 +127,9 @@
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> join1"
+				"     broadcast: 'auto')~> joinWithDate",
+				"joinWithDate pivot(columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot1"
 			]
 		}
 	}
