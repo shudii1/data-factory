@@ -144,9 +144,10 @@
 				"splitWeeklyDaily@Daily pivot(groupBy(country,",
 				"          country_code_2_digit,",
 				"          country_code_3_digit,",
+				"          population,",
 				"          reported_date,",
-				"          {} = ERROR_FUNCTION(''),",
 				"          source),",
+				"     pivotBy(indicator, ['Daily hospital occupancy']),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivotDaily"
 			]
