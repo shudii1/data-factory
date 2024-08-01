@@ -28,6 +28,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "ds_weekly_hospital_admission",
+						"type": "DatasetReference"
+					},
 					"name": "sinkWeeklyDate"
 				},
 				{
@@ -204,6 +208,9 @@
 				"     skipDuplicateMapOutputs: true) ~> selectDaily",
 				"selectWeekly sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> sinkWeeklyDate",
 				"selectDaily sink(allowSchemaDrift: true,",
