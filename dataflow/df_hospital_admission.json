@@ -134,6 +134,7 @@
 				"          population,",
 				"          reported_year_week,",
 				"          source),",
+				"     pivotBy(indicator, ['Weekly new hospital']),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivotWeekly"
 			]
