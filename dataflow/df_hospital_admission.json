@@ -41,9 +41,6 @@
 					"name": "splitWeeklyDaily"
 				},
 				{
-					"name": "derivedECDC"
-				},
-				{
 					"name": "aggregateECDCDate"
 				}
 			],
@@ -117,8 +114,7 @@
 				"     skipDuplicateMapOutputs: true) ~> selectHospitalAdmissoin",
 				"selectHospitalAdmissoin split(indicator=='Weekly new hospital admissions per 100k' ||indicator=='Weekly new ICU admissions per 100k',",
 				"     disjoint: false) ~> splitWeeklyDaily@(Weekly, Daily)",
-				"DimLookup derive(ecdc_data = year + '-W'+ lpad(week_of_year, 2, '0')) ~> derivedECDC",
-				"derivedECDC aggregate(groupBy(ecdc_date_year = year + '-W'+ lpad(week_of_year, 2, '0')),",
+				"DimLookup aggregate(groupBy(ecdc_date_year = year + '-W'+ lpad(week_of_year, 2, '0')),",
 				"     week_start_date = min(date),",
 				"          week_end_date = max(date)) ~> aggregateECDCDate"
 			]
