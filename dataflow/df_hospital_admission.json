@@ -42,6 +42,9 @@
 				},
 				{
 					"name": "derivedECDC"
+				},
+				{
+					"name": "aggregate1"
 				}
 			],
 			"scriptLines": [
@@ -114,7 +117,8 @@
 				"     skipDuplicateMapOutputs: true) ~> selectHospitalAdmissoin",
 				"selectHospitalAdmissoin split(indicator=='Weekly new hospital admissions per 100k' ||indicator=='Weekly new ICU admissions per 100k',",
 				"     disjoint: false) ~> splitWeeklyDaily@(Weekly, Daily)",
-				"DimLookup derive(ecdc_data = ERROR_FUNCTION('')) ~> derivedECDC"
+				"DimLookup derive(ecdc_data = ERROR_FUNCTION('')) ~> derivedECDC",
+				"derivedECDC aggregate() ~> aggregate1"
 			]
 		}
 	}
