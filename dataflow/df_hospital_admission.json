@@ -120,7 +120,7 @@
 				"DimLookup derive(ecdc_data = ERROR_FUNCTION('')) ~> derivedECDC",
 				"derivedECDC aggregate(groupBy(ecdc_data),",
 				"     week_start_date = min(date),",
-				"          column1 = ERROR_FUNCTION('')) ~> aggregateECDCDate"
+				"          week_end_date = max(date)) ~> aggregateECDCDate"
 			]
 		}
 	}
