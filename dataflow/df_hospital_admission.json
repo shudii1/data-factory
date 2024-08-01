@@ -26,7 +26,11 @@
 					"name": "DimLookup"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"name": "sinkWeeklyDate"
+				}
+			],
 			"transformations": [
 				{
 					"name": "selectHospital"
@@ -189,12 +193,16 @@
 				"          country_code_3_digit,",
 				"          population,",
 				"          reported_date,",
-				"          {Daily hospital occupancy_count},",
-				"          {Daily ICU occupancy_count},",
+				"          hospital_occupancy_count = {Daily hospital occupancy_count},",
+				"          { ICU_occupancy_count} = {Daily ICU occupancy_count},",
 				"          source",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> selectDaily"
+				"     skipDuplicateMapOutputs: true) ~> selectDaily",
+				"selectWeekly sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkWeeklyDate"
 			]
 		}
 	}
