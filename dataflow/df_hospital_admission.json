@@ -175,7 +175,7 @@
 				"          report_week_start_date = week_start_date,",
 				"          report_week_end_date = week_end_date,",
 				"          source,",
-				"          {Weekly new hospital admissions per 100k_count},",
+				"          {new hospital admissions } = {Weekly new hospital admissions per 100k_count},",
 				"          {Weekly new ICU admissions per 100k_count}",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
