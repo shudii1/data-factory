@@ -48,6 +48,9 @@
 				},
 				{
 					"name": "pivotWeekly"
+				},
+				{
+					"name": "pivot1"
 				}
 			],
 			"scriptLines": [
@@ -137,7 +140,9 @@
 				"     pivotBy(indicator, ['Weekly new hospital admissions per 100k', 'Weekly new ICU admissions per 100k']),",
 				"     count = sum(value),",
 				"     columnNaming: '$V_$N',",
-				"     lateral: true) ~> pivotWeekly"
+				"     lateral: true) ~> pivotWeekly",
+				"splitWeeklyDaily@Daily pivot(columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot1"
 			]
 		}
 	}
