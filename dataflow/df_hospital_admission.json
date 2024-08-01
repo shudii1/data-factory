@@ -130,8 +130,10 @@
 				"     broadcast: 'auto')~> joinWithDate",
 				"joinWithDate pivot(groupBy(country,",
 				"          country_code_2_digit,",
-				"          {} = ERROR_FUNCTION(''),",
-				"          {} = ERROR_FUNCTION('')),",
+				"          country_code_3_digit,",
+				"          population,",
+				"          reported_year_week,",
+				"          source),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivotWeekly"
 			]
