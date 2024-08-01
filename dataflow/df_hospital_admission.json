@@ -120,7 +120,7 @@
 				"DimLookup aggregate(groupBy(ecdc_date_year = year + '-W'+ lpad(week_of_year, 2, '0')),",
 				"     week_start_date = min(date),",
 				"          week_end_date = max(date)) ~> aggregateECDCDate",
-				"splitWeeklyDaily@Weekly, DimLookup join(reported_year_week == ERROR_FUNCTION(''),",
+				"splitWeeklyDaily@Weekly, aggregateECDCDate join(reported_year_week == ecdc_date_year,",
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
