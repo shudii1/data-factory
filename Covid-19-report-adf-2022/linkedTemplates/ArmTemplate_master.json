@@ -65,13 +65,33 @@
 					},
 					"ls_https_github_ecdc_eu_properties_typeProperties_url": {
 						"value": "[parameters('ls_https_github_ecdc_eu_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "Covid-19-report-adf-2022_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
 					},
 					"tr_ingest_population_properties_typeProperties_scope": {
 						"value": "[parameters('tr_ingest_population_properties_typeProperties_scope')]"
 					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Covid-19-report-adf-2022_ArmTemplate_0')]"
+			]
 		}
 	]
 }
