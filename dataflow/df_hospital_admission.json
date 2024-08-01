@@ -65,7 +65,7 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> countrySource",
 				"source(output(",
-				"          date_key as date,",
+				"          date_key as string,",
 				"          date as date,",
 				"          year as short,",
 				"          month as short,",
