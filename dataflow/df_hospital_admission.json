@@ -118,7 +118,9 @@
 				"selectHospitalAdmissoin split(indicator=='Weekly new hospital admissions per 100k' ||indicator=='Weekly new ICU admissions per 100k',",
 				"     disjoint: false) ~> splitWeeklyDaily@(Weekly, Daily)",
 				"DimLookup derive(ecdc_data = ERROR_FUNCTION('')) ~> derivedECDC",
-				"derivedECDC aggregate(groupBy(date_key)) ~> aggregateECDCDate"
+				"derivedECDC aggregate(groupBy(ecdc_data),",
+				"     week_start_date = min(date),",
+				"          column1 = ERROR_FUNCTION('')) ~> aggregateECDCDate"
 			]
 		}
 	}
