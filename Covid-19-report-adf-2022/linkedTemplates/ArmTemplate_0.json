@@ -93,6 +93,7 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": "country_lookup.csv",
+						"folderPath": "dim_country",
 						"fileSystem": "lookup"
 					},
 					"columnDelimiter": ",",
@@ -128,6 +129,34 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_daily_hospital_admission')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_adls_covidreportingdl",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "ecdc/hospital_admission_daily",
+						"fileSystem": "processed"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidreportingdl')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ds_dim_lookup')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -142,6 +171,7 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": "dim_date.csv",
+						"folderPath": "dim_date",
 						"fileSystem": "lookup"
 					},
 					"columnDelimiter": ",",
@@ -255,7 +285,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "ecdc_file_list.json",
+						"fileName": "ecdc_file_list (1).json",
 						"container": "config"
 					}
 				},
@@ -324,7 +354,7 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": "hospital_admissions.csv",
-						"folderPath": "ecdc",
+						"folderPath": "ecdc/hospital_admissions",
 						"fileSystem": "raw"
 					},
 					"columnDelimiter": ",",
@@ -469,7 +499,7 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"fileName": "cases_deaths.csv",
-						"folderPath": "ecdc",
+						"folderPath": "ecdc/cases_deaths",
 						"fileSystem": "raw"
 					},
 					"columnDelimiter": ",",
@@ -535,34 +565,6 @@
 					"location": {
 						"type": "AzureBlobFSLocation",
 						"folderPath": "ecdc/hospital_admission_weekly",
-						"fileSystem": "processed"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_adls_covidreportingdl')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_daily_hospital_admission')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_adls_covidreportingdl",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "ecdc/hospital_admission_daily",
 						"fileSystem": "processed"
 					},
 					"columnDelimiter": ",",
@@ -1170,7 +1172,7 @@
 						"     skipDuplicateMapOutputs: true) ~> selectHospitalAdmissoin",
 						"selectHospitalAdmissoin split(indicator=='Weekly new hospital admissions per 100k' ||indicator=='Weekly new ICU admissions per 100k',",
 						"     disjoint: false) ~> splitWeeklyDaily@(Weekly, Daily)",
-						"DimLookup aggregate(groupBy(ecdc_date_year = year + '-W'+ lpad(week_of_year, 2, '0')),",
+						"DimLookup aggregate(groupBy(ecdc_date_year = year+'-W'+lpad(week_of_year,2,'0')),",
 						"     week_start_date = min(date),",
 						"          week_end_date = max(date)) ~> aggregateECDCDate",
 						"splitWeeklyDaily@Weekly, aggregateECDCDate join(reported_year_week == ecdc_date_year,",
@@ -1256,13 +1258,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pl_processed_cases_death')]",
+			"name": "[concat(parameters('factoryName'), '/pl_process_hospital_data')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "df_transform_cases_deaths",
+						"name": "df_hospital_admission",
 						"type": "ExecuteDataFlow",
 						"dependsOn": [],
 						"policy": {
@@ -1275,13 +1277,15 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataflow": {
-								"referenceName": "df_case_death",
+								"referenceName": "df_hospital_admission",
 								"type": "DataFlowReference",
 								"parameters": {},
 								"datasetParameters": {
-									"CaseAndDeath": {},
-									"CountryLookUp": {},
-									"sinkProcessed": {}
+									"hospitalAdmission": {},
+									"countrySource": {},
+									"DimLookup": {},
+									"sinkWeeklyDate": {},
+									"sinkDaily": {}
 								}
 							},
 							"staging": {},
@@ -1299,7 +1303,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/df_case_death')]"
+				"[concat(variables('factoryId'), '/dataflows/df_hospital_admission')]"
 			]
 		}
 	]
