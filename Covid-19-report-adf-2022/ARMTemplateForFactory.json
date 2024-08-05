@@ -453,7 +453,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "country_lookup.csv",
+						"fileName": "country_lookup",
 						"folderPath": "dim_country",
 						"fileSystem": "lookup"
 					},
@@ -531,7 +531,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "dim_date.csv",
+						"fileName": "dim_date",
 						"folderPath": "dim_date",
 						"fileSystem": "lookup"
 					},
